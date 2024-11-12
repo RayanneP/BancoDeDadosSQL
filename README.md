@@ -49,9 +49,12 @@ CREATE TABLE livro(
     id_livro INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(150) NOT NULL,
     ano_publicacao YEAR,
+    editora INT,
+    autor INT,
+    assunto INT,
     FOREING KEY(editora) REFERENCES editora(id_editora),
-    FOREING KEY(id_autor) REFERENCES autor (id_autor),
-    FOREING KEY(id_assunto) REFERENCES assunto (id_assunto)
+    FOREING KEY(autor) REFERENCES autor (id_autor),
+    FOREING KEY(assunto) REFERENCES assunto (id_assunto)
 );
 
 ```
@@ -62,7 +65,7 @@ CREATE TABLE extra(
     id INT PRIMARY KEY AUTO_INCREMENT,
     produto VARCHAR(50),
     quantidade INT(20),
-    preco
+    preco DOUBLE NOT NULL
 );
 ```
 ## Passo 2: editar tabelas usando 'ALTER'
@@ -71,4 +74,55 @@ Após a criação da tabela, podemos adicionar novos campos. Vamos adicionar a c
 ```SQL
 ALTER TABLE autor
 ADD COLUMN email VARCHAR(100);
+```
+
+## Passo 3: Remover tabela usando'DROP'
+Se precisar remover uma tabela usamos o comando 'DROP'
+Neste exemplo vamos remover a tabela 'extra' 
+
+```
+DROP TABLE extra;
+```
+
+## Passo 4: Inserindo dados 'INSERT'
+Agora que as tabelas já estão prontas, vamos inserir dados nelas.
+
+#### 4.1 Inserindo dados na tabela 'editora'
+```SQL
+INSERT INTO editora(nome_editora, pais)
+VALUES 
+('Editora Alfa', 'Brasil'),
+('Editora Beta', 'Portugal'),
+('Editora Bertrand Brasil ', 'Brasil');
+
+```
+#### 4.2 Inserindo dados na tabela 'autor'
+```SQL
+INSERT INTO autor(nome_autor, data_nascimento, email)
+VALUES
+('Jorge Amado', '1912-08-10', 'jorginho@email.com'),
+('Machado de Assis','1839-06-21', 'machadinho@email.com'),
+('Matt Haig','1975-06-03','matt@email.com');
+```
+
+#### 4.3 Inserindo dados na tabela 'assunto'
+```SQL
+INSERT INTO assunto(descricao_assunto)
+VALUES
+('Ficção'),
+('Suspense')
+('Romance')
+('Terror')
+('Aventura')
+('Infantil')
+```
+
+#### 4.4 Inserindo dados na tabela 'livro'
+```SQL
+INSERT INTO livro(titulo, ano_publicacao, editora, autor, assunto)
+VALUES
+('Capitães da Areia',1937,1,1,4),
+('Dom Casmurro',1899, 2, 2, 4),
+('A Biblioteca da Meia Noite', 2020, 3, 3, 2),
+('Memórias Póstumas de Brás Cubas', 1881,1,2,4);
 ```
